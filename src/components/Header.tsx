@@ -9,9 +9,7 @@ import logo from "@/assets/logo.webp";
 
 const navLinks = [
   { label: "Encontre seu imóvel", href: "#imoveis" },
-  { label: "Imóveis Caixa", href: "#caixa" },
   { label: "Financiamento", href: "#simulador" },
-  { label: "Leiloeiros Parceiros", href: "#parceiros" },
   { label: "Quem Somos", href: "/quem-somos" },
   { label: "Blog", href: "/blog" },
   { label: "Contato", href: "#contato" },
