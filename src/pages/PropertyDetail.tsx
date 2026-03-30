@@ -107,7 +107,7 @@ const PropertyDetail = () => {
         <div className="md:hidden bg-coral text-accent-foreground">
           <div className="container py-3 flex items-center justify-between">
             <span className="font-heading font-bold text-xl">{property.price}</span>
-            <Button size="sm" className="bg-accent-foreground/20 hover:bg-accent-foreground/30 text-accent-foreground border-0">
+            <Button size="sm" className="bg-accent-foreground/20 hover:bg-accent-foreground/30 text-accent-foreground border-0" onClick={() => window.open(`https://wa.me/5594991352277?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel: ${property.title}`)}`, '_blank')}>
               Tenho interesse
             </Button>
           </div>
@@ -307,8 +307,8 @@ const PropertyDetail = () => {
                   )}
 
                   <div className="space-y-2 mt-6">
-                    <Button className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold py-5">Tenho interesse</Button>
-                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground py-5 gap-2">
+                    <Button className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold py-5" onClick={() => window.open(`https://wa.me/5594991352277?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel: ${property.title}`)}`, '_blank')}>Tenho interesse</Button>
+                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground py-5 gap-2" onClick={() => window.open(`https://wa.me/5594991352277?text=${encodeURIComponent(`Olá! Gostaria de enviar uma proposta para o imóvel: ${property.title}`)}`, '_blank')}>
                       <FileText className="w-4 h-4" /> Enviar Proposta
                     </Button>
                   </div>
