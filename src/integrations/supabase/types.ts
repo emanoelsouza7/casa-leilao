@@ -14,7 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      properties: {
+        Row: {
+          aceita_fgts: boolean
+          aceita_financiamento: boolean
+          aceita_parcelamento: boolean
+          address: string
+          area_terreno: string | null
+          area_total: string | null
+          area_util: string | null
+          bairro: string | null
+          banco: string | null
+          cidade: string | null
+          closing_date: string | null
+          codigo_origem: string | null
+          comarca: string | null
+          condominio: string | null
+          created_at: string
+          data_inclusao: string | null
+          date1: string | null
+          date2: string | null
+          descricao: string | null
+          discount: string | null
+          estado: string | null
+          id: string
+          image: string
+          images: string[]
+          matricula: string | null
+          oficio: string | null
+          old_price: string | null
+          price: string
+          price1: string | null
+          price2: string | null
+          quartos: number | null
+          tags: string[]
+          tipo: string | null
+          title: string
+          tributos: string | null
+          updated_at: string
+          vagas: number | null
+          valor_avaliacao: string | null
+        }
+        Insert: {
+          aceita_fgts?: boolean
+          aceita_financiamento?: boolean
+          aceita_parcelamento?: boolean
+          address?: string
+          area_terreno?: string | null
+          area_total?: string | null
+          area_util?: string | null
+          bairro?: string | null
+          banco?: string | null
+          cidade?: string | null
+          closing_date?: string | null
+          codigo_origem?: string | null
+          comarca?: string | null
+          condominio?: string | null
+          created_at?: string
+          data_inclusao?: string | null
+          date1?: string | null
+          date2?: string | null
+          descricao?: string | null
+          discount?: string | null
+          estado?: string | null
+          id: string
+          image?: string
+          images?: string[]
+          matricula?: string | null
+          oficio?: string | null
+          old_price?: string | null
+          price: string
+          price1?: string | null
+          price2?: string | null
+          quartos?: number | null
+          tags?: string[]
+          tipo?: string | null
+          title: string
+          tributos?: string | null
+          updated_at?: string
+          vagas?: number | null
+          valor_avaliacao?: string | null
+        }
+        Update: {
+          aceita_fgts?: boolean
+          aceita_financiamento?: boolean
+          aceita_parcelamento?: boolean
+          address?: string
+          area_terreno?: string | null
+          area_total?: string | null
+          area_util?: string | null
+          bairro?: string | null
+          banco?: string | null
+          cidade?: string | null
+          closing_date?: string | null
+          codigo_origem?: string | null
+          comarca?: string | null
+          condominio?: string | null
+          created_at?: string
+          data_inclusao?: string | null
+          date1?: string | null
+          date2?: string | null
+          descricao?: string | null
+          discount?: string | null
+          estado?: string | null
+          id?: string
+          image?: string
+          images?: string[]
+          matricula?: string | null
+          oficio?: string | null
+          old_price?: string | null
+          price?: string
+          price1?: string | null
+          price2?: string | null
+          quartos?: number | null
+          tags?: string[]
+          tipo?: string | null
+          title?: string
+          tributos?: string | null
+          updated_at?: string
+          vagas?: number | null
+          valor_avaliacao?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
