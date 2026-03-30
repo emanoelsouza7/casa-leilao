@@ -58,6 +58,21 @@ const PropertyCard = ({
 
       {/* Content */}
       <div className="p-4">
+        {/* Price section */}
+        {price && (
+          <div className="mb-2">
+            {oldPrice && (
+              <p className="text-xs text-muted-foreground line-through">{oldPrice}</p>
+            )}
+            <div className="flex items-center gap-2">
+              <span className="font-heading font-bold text-lg text-coral">{price}</span>
+              {discount && (
+                <span className="bg-primary text-primary-foreground text-[10px] font-bold px-2 py-0.5 rounded-full">{discount} OFF</span>
+              )}
+            </div>
+          </div>
+        )}
+
         <h3 className="font-heading font-semibold text-sm text-foreground mb-1 line-clamp-2">
           {title}
         </h3>
