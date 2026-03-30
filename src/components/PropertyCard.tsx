@@ -6,11 +6,11 @@ interface PropertyCardProps {
   image: string;
   title: string;
   address: string;
-  discount: string;
-  price1: string;
-  date1: string;
-  price2: string;
-  date2: string;
+  discount?: string;
+  price1?: string;
+  date1?: string;
+  price2?: string;
+  date2?: string;
   tags: string[];
 }
 
