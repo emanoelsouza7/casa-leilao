@@ -73,8 +73,8 @@ const Header = () => {
               </a>
             ))}
             <div className="flex gap-3 pt-3 border-t border-border">
-              <Button variant="ghost" size="sm">Login</Button>
-              <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold">
+              <Button variant="ghost" size="sm" onClick={() => { setMobileOpen(false); navigate("/login"); }}>Login</Button>
+              <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold" onClick={() => { setMobileOpen(false); navigate("/cadastro"); }}>
                 Cadastre-se
               </Button>
             </div>
