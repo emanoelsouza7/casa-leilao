@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.webp";
 
 const navLinks = [
   { label: "Encontre seu imóvel", href: "#imoveis" },
