@@ -1,16 +1,71 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ArrowLeft, MapPin, Home, Car, Maximize, ChevronLeft, ChevronRight, Heart, Share2, FileText, CheckCircle, XCircle, Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { getPropertyById, allProperties } from "@/data/properties";
+import { supabase } from "@/integrations/supabase/client";
 import SearchPropertyCard from "@/components/SearchPropertyCard";
 
 const PropertyDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const property = getPropertyById(id || "");
+  const [property, setProperty] = useState<any>(null);
+  const [similarProperties, setSimilarProperties] = useState<any[]>([]);
   const [currentImage, setCurrentImage] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProperty = async () => {
+      if (!id) return;
+      const { data } = await supabase.from("properties").select("*").eq("id", id).single();
+      if (data) {
+        const p = {
+          ...data,
+          oldPrice: data.old_price,
+          closingDate: data.closing_date,
+          areaTotal: data.area_total,
+          areaUtil: data.area_util,
+          areaTerreno: data.area_terreno,
+          codigoOrigem: data.codigo_origem,
+          dataInclusao: data.data_inclusao,
+          valorAvaliacao: data.valor_avaliacao,
+          aceitaFinanciamento: data.aceita_financiamento,
+          aceitaFGTS: data.aceita_fgts,
+          aceitaParcelamento: data.aceita_parcelamento,
+        };
+        setProperty(p);
+
+        // Fetch similar
+        const { data: similar } = await supabase
+          .from("properties")
+          .select("*")
+          .eq("cidade", data.cidade || "")
+          .neq("id", data.id)
+          .limit(4);
+        if (similar) {
+          setSimilarProperties(similar.map((s) => ({
+            ...s,
+            oldPrice: s.old_price,
+            closingDate: s.closing_date,
+          })));
+        }
+      }
+      setLoading(false);
+    };
+    fetchProperty();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-secondary">
+        <Header />
+        <main className="flex-1 flex items-center justify-center">
+          <p className="text-muted-foreground">Carregando...</p>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!property) {
     return (
@@ -30,7 +85,6 @@ const PropertyDetail = () => {
   }
 
   const allImages = property.images.length > 0 ? property.images : [property.image];
-  const similarProperties = allProperties.filter((p) => p.id !== property.id && p.cidade === property.cidade).slice(0, 4);
 
   return (
     <div className="min-h-screen flex flex-col bg-secondary">
@@ -61,55 +115,35 @@ const PropertyDetail = () => {
 
         <div className="container py-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Left column - Images + Details */}
+            {/* Left column */}
             <div className="lg:col-span-2 space-y-6">
               {/* Image Gallery */}
               <div className="relative rounded-xl overflow-hidden bg-card border border-border">
                 <div className="relative h-[300px] md:h-[450px]">
-                  <img
-                    src={allImages[currentImage]}
-                    alt={property.title}
-                    className="w-full h-full object-cover"
-                  />
+                  <img src={allImages[currentImage]} alt={property.title} className="w-full h-full object-cover" />
                   {allImages.length > 1 && (
                     <>
-                      <button
-                        onClick={() => setCurrentImage((prev) => (prev === 0 ? allImages.length - 1 : prev - 1))}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center hover:bg-background transition-colors"
-                      >
+                      <button onClick={() => setCurrentImage((prev) => (prev === 0 ? allImages.length - 1 : prev - 1))} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center hover:bg-background transition-colors">
                         <ChevronLeft className="w-5 h-5 text-foreground" />
                       </button>
-                      <button
-                        onClick={() => setCurrentImage((prev) => (prev === allImages.length - 1 ? 0 : prev + 1))}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center hover:bg-background transition-colors"
-                      >
+                      <button onClick={() => setCurrentImage((prev) => (prev === allImages.length - 1 ? 0 : prev + 1))} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur flex items-center justify-center hover:bg-background transition-colors">
                         <ChevronRight className="w-5 h-5 text-foreground" />
                       </button>
                     </>
                   )}
-                  {/* Tags overlay */}
                   <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
-                    {property.tags.map((tag) => (
-                      <span key={tag} className="bg-primary text-primary-foreground text-xs font-bold px-2.5 py-1 rounded">
-                        {tag}
-                      </span>
+                    {property.tags.map((tag: string) => (
+                      <span key={tag} className="bg-primary text-primary-foreground text-xs font-bold px-2.5 py-1 rounded">{tag}</span>
                     ))}
                   </div>
                   {property.discount && (
-                    <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-sm font-bold px-3 py-1.5 rounded-lg">
-                      {property.discount} OFF
-                    </div>
+                    <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-sm font-bold px-3 py-1.5 rounded-lg">{property.discount} OFF</div>
                   )}
                 </div>
-                {/* Thumbnails */}
                 {allImages.length > 1 && (
                   <div className="p-3 flex gap-2 overflow-x-auto">
-                    {allImages.map((img, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setCurrentImage(i)}
-                        className={`w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 ${i === currentImage ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"}`}
-                      >
+                    {allImages.map((img: string, i: number) => (
+                      <button key={i} onClick={() => setCurrentImage(i)} className={`w-16 h-16 rounded-lg overflow-hidden border-2 shrink-0 ${i === currentImage ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"}`}>
                         <img src={img} alt="" className="w-full h-full object-cover" />
                       </button>
                     ))}
@@ -119,16 +153,14 @@ const PropertyDetail = () => {
 
               {/* Title + Address */}
               <div>
-                <h1 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-2">
-                  {property.title}
-                </h1>
+                <h1 className="text-xl md:text-2xl font-heading font-bold text-foreground mb-2">{property.title}</h1>
                 <div className="flex items-start gap-1.5">
                   <MapPin className="w-4 h-4 text-muted-foreground mt-0.5 shrink-0" />
                   <p className="text-sm text-muted-foreground">{property.address}</p>
                 </div>
               </div>
 
-              {/* Property Details Card */}
+              {/* Property Details */}
               <div className="bg-card rounded-xl border border-border p-6">
                 <h2 className="font-heading font-bold text-lg text-foreground mb-4">Detalhes do Imóvel</h2>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
@@ -153,14 +185,14 @@ const PropertyDetail = () => {
                       <span className="text-sm font-heading font-bold text-foreground">{property.areaTerreno}</span>
                     </div>
                   )}
-                  {property.quartos !== undefined && (
+                  {property.quartos !== undefined && property.quartos !== null && (
                     <div className="flex flex-col items-center gap-2 p-3 bg-secondary rounded-lg">
                       <Home className="w-5 h-5 text-primary" />
                       <span className="text-xs text-muted-foreground">Quartos</span>
                       <span className="text-sm font-heading font-bold text-foreground">{property.quartos}</span>
                     </div>
                   )}
-                  {property.vagas !== undefined && (
+                  {property.vagas !== undefined && property.vagas !== null && (
                     <div className="flex flex-col items-center gap-2 p-3 bg-secondary rounded-lg">
                       <Car className="w-5 h-5 text-primary" />
                       <span className="text-xs text-muted-foreground">Vagas</span>
@@ -182,97 +214,39 @@ const PropertyDetail = () => {
               <div className="bg-card rounded-xl border border-border p-6">
                 <h2 className="font-heading font-bold text-lg text-foreground mb-4">Mais sobre o Imóvel</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {property.tipo && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Tipo</span>
-                      <span className="text-sm font-medium text-foreground">{property.tipo}</span>
+                  {[
+                    { label: "Tipo", value: property.tipo },
+                    { label: "Banco", value: property.banco },
+                    { label: "Cidade", value: property.cidade ? `${property.cidade}/${property.estado}` : null },
+                    { label: "Bairro", value: property.bairro },
+                    { label: "Comarca", value: property.comarca },
+                    { label: "Matrícula", value: property.matricula },
+                    { label: "Código Origem", value: property.codigoOrigem },
+                    { label: "Data de Inclusão", value: property.dataInclusao },
+                    { label: "Valor de Avaliação", value: property.valorAvaliacao },
+                  ].filter(item => item.value).map((item) => (
+                    <div key={item.label} className="flex justify-between py-2 border-b border-border">
+                      <span className="text-sm text-muted-foreground">{item.label}</span>
+                      <span className="text-sm font-medium text-foreground">{item.value}</span>
                     </div>
-                  )}
-                  {property.banco && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Banco</span>
-                      <span className="text-sm font-medium text-foreground">{property.banco}</span>
-                    </div>
-                  )}
-                  {property.cidade && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Cidade</span>
-                      <span className="text-sm font-medium text-foreground">{property.cidade}/{property.estado}</span>
-                    </div>
-                  )}
-                  {property.bairro && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Bairro</span>
-                      <span className="text-sm font-medium text-foreground">{property.bairro}</span>
-                    </div>
-                  )}
-                  {property.comarca && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Comarca</span>
-                      <span className="text-sm font-medium text-foreground">{property.comarca}</span>
-                    </div>
-                  )}
-                  {property.matricula && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Matrícula</span>
-                      <span className="text-sm font-medium text-foreground">{property.matricula}</span>
-                    </div>
-                  )}
-                  {property.codigoOrigem && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Código Origem</span>
-                      <span className="text-sm font-medium text-foreground">{property.codigoOrigem}</span>
-                    </div>
-                  )}
-                  {property.dataInclusao && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Data de Inclusão</span>
-                      <span className="text-sm font-medium text-foreground">{property.dataInclusao}</span>
-                    </div>
-                  )}
-                  {property.valorAvaliacao && (
-                    <div className="flex justify-between py-2 border-b border-border">
-                      <span className="text-sm text-muted-foreground">Valor de Avaliação</span>
-                      <span className="text-sm font-medium text-foreground">{property.valorAvaliacao}</span>
-                    </div>
-                  )}
+                  ))}
                 </div>
               </div>
 
-              {/* Financing info */}
+              {/* Payment Info */}
               <div className="bg-card rounded-xl border border-border p-6">
                 <h2 className="font-heading font-bold text-lg text-foreground mb-4">Informações de Pagamento</h2>
                 <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    {property.aceitaFinanciamento ? (
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                    ) : (
-                      <XCircle className="w-5 h-5 text-destructive" />
-                    )}
-                    <span className="text-sm text-foreground">
-                      Imóvel {property.aceitaFinanciamento ? "ACEITA" : "NÃO ACEITA"} Financiamento
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {property.aceitaFGTS ? (
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                    ) : (
-                      <XCircle className="w-5 h-5 text-destructive" />
-                    )}
-                    <span className="text-sm text-foreground">
-                      Imóvel {property.aceitaFGTS ? "ACEITA" : "NÃO ACEITA"} FGTS
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {property.aceitaParcelamento ? (
-                      <CheckCircle className="w-5 h-5 text-primary" />
-                    ) : (
-                      <XCircle className="w-5 h-5 text-destructive" />
-                    )}
-                    <span className="text-sm text-foreground">
-                      Imóvel {property.aceitaParcelamento ? "ACEITA" : "NÃO ACEITA"} Parcelamento
-                    </span>
-                  </div>
+                  {[
+                    { label: "Financiamento", value: property.aceitaFinanciamento },
+                    { label: "FGTS", value: property.aceitaFGTS },
+                    { label: "Parcelamento", value: property.aceitaParcelamento },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2">
+                      {item.value ? <CheckCircle className="w-5 h-5 text-primary" /> : <XCircle className="w-5 h-5 text-destructive" />}
+                      <span className="text-sm text-foreground">Imóvel {item.value ? "ACEITA" : "NÃO ACEITA"} {item.label}</span>
+                    </div>
+                  ))}
                   {property.condominio && (
                     <div className="mt-3 p-3 bg-secondary rounded-lg">
                       <span className="text-xs font-medium text-foreground">Condomínio:</span>
@@ -289,10 +263,9 @@ const PropertyDetail = () => {
               </div>
             </div>
 
-            {/* Right column - Price + CTA (sticky) */}
+            {/* Right column - Price + CTA */}
             <div className="hidden md:block">
               <div className="sticky top-4 space-y-4">
-                {/* Price card */}
                 <div className="bg-card rounded-xl border border-border p-6">
                   {property.oldPrice && (
                     <div className="mb-2">
@@ -305,12 +278,9 @@ const PropertyDetail = () => {
                     <p className="text-2xl font-heading font-bold text-coral">{property.price}</p>
                   </div>
                   {property.discount && (
-                    <span className="inline-block bg-primary text-primary-foreground text-sm font-bold px-3 py-1 rounded-full mb-4">
-                      {property.discount} de desconto
-                    </span>
+                    <span className="inline-block bg-primary text-primary-foreground text-sm font-bold px-3 py-1 rounded-full mb-4">{property.discount} de desconto</span>
                   )}
 
-                  {/* Auction dates */}
                   {(property.date1 || property.date2) && (
                     <div className="space-y-3 border-t border-border pt-4 mt-4">
                       {property.date1 && property.price1 && (
@@ -336,71 +306,38 @@ const PropertyDetail = () => {
                     </div>
                   )}
 
-                  {property.closingDate && (
-                    <p className="text-xs text-muted-foreground mt-3">
-                      Encerra em: <span className="font-medium text-foreground">{property.closingDate}</span>
-                    </p>
-                  )}
-
-                  <Button className="w-full bg-coral hover:bg-coral/90 text-accent-foreground font-bold text-base py-6 mt-4">
-                    Tenho interesse
-                  </Button>
-
-                  <div className="flex gap-2 mt-3">
-                    <Button variant="outline" className="flex-1 gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      <Heart className="w-4 h-4" /> Favoritar
-                    </Button>
-                    <Button variant="outline" className="flex-1 gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      <Share2 className="w-4 h-4" /> Compartilhar
+                  <div className="space-y-2 mt-6">
+                    <Button className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold py-5">Tenho interesse</Button>
+                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground py-5 gap-2">
+                      <FileText className="w-4 h-4" /> Enviar Proposta
                     </Button>
                   </div>
-                </div>
 
-                {/* Benefits */}
-                <div className="bg-card rounded-xl border border-border p-6">
-                  <h3 className="font-heading font-bold text-sm text-foreground mb-3">Benefícios</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs font-medium text-foreground">Assessoria Gratuita</p>
-                        <p className="text-[10px] text-muted-foreground">Time de especialistas ao seu lado</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs font-medium text-foreground">Financiamento</p>
-                        <p className="text-[10px] text-muted-foreground">Possibilidade de financiar com 5% de entrada</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <CheckCircle className="w-4 h-4 text-primary mt-0.5 shrink-0" />
-                      <div>
-                        <p className="text-xs font-medium text-foreground">Segurança</p>
-                        <p className="text-[10px] text-muted-foreground">Compre direto do banco</p>
-                      </div>
-                    </div>
+                  <div className="flex gap-2 mt-4">
+                    <Button variant="ghost" size="sm" className="flex-1 gap-1 text-muted-foreground">
+                      <Heart className="w-4 h-4" /> Salvar
+                    </Button>
+                    <Button variant="ghost" size="sm" className="flex-1 gap-1 text-muted-foreground">
+                      <Share2 className="w-4 h-4" /> Compartilhar
+                    </Button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
-          {/* Similar properties */}
-          {similarProperties.length > 0 && (
-            <div className="mt-12">
-              <h2 className="text-xl font-heading font-bold text-foreground mb-6">Imóveis Similares</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {similarProperties.map((prop) => (
-                  <Link key={prop.id} to={`/imovel/${prop.id}`}>
-                    <SearchPropertyCard {...prop} />
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
+
+        {/* Similar Properties */}
+        {similarProperties.length > 0 && (
+          <div className="container pb-12">
+            <h2 className="text-xl font-heading font-bold text-foreground mb-6">Imóveis Similares</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {similarProperties.map((p) => (
+                <SearchPropertyCard key={p.id} {...p} />
+              ))}
+            </div>
+          </div>
+        )}
       </main>
       <Footer />
     </div>

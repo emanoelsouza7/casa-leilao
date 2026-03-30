@@ -6,11 +6,11 @@ interface PropertyCardProps {
   image: string;
   title: string;
   address: string;
-  discount: string;
-  price1: string;
-  date1: string;
-  price2: string;
-  date2: string;
+  discount?: string;
+  price1?: string;
+  date1?: string;
+  price2?: string;
+  date2?: string;
   tags: string[];
 }
 
@@ -45,9 +45,11 @@ const PropertyCard = ({
             </span>
           ))}
         </div>
-        <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-xs font-bold px-2.5 py-1 rounded-lg">
-          {discount}
-        </div>
+        {discount && (
+          <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-xs font-bold px-2.5 py-1 rounded-lg">
+            {discount}
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -60,22 +62,28 @@ const PropertyCard = ({
           <p className="text-xs text-muted-foreground line-clamp-2">{address}</p>
         </div>
 
-        <div className="space-y-2 border-t border-border pt-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-muted-foreground" />
-              <span className="text-[10px] text-muted-foreground">1ª Praça: {date1}</span>
-            </div>
-            <span className="font-heading font-bold text-sm text-primary">{price1}</span>
+        {(date1 || date2) && (
+          <div className="space-y-2 border-t border-border pt-3">
+            {date1 && price1 && (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3 text-muted-foreground" />
+                  <span className="text-[10px] text-muted-foreground">1ª Praça: {date1}</span>
+                </div>
+                <span className="font-heading font-bold text-sm text-primary">{price1}</span>
+              </div>
+            )}
+            {date2 && price2 && (
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-3 h-3 text-muted-foreground" />
+                  <span className="text-[10px] text-muted-foreground">2ª Praça: {date2}</span>
+                </div>
+                <span className="font-heading font-bold text-sm text-coral">{price2}</span>
+              </div>
+            )}
           </div>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-1">
-              <Calendar className="w-3 h-3 text-muted-foreground" />
-              <span className="text-[10px] text-muted-foreground">2ª Praça: {date2}</span>
-            </div>
-            <span className="font-heading font-bold text-sm text-coral">{price2}</span>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
