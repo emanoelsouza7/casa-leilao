@@ -6,6 +6,8 @@ interface PropertyCardProps {
   image: string;
   title: string;
   address: string;
+  price?: string;
+  oldPrice?: string;
   discount?: string;
   price1?: string;
   date1?: string;
