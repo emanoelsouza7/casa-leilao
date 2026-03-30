@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.webp";
@@ -15,6 +16,7 @@ const navLinks = [
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 z-50 bg-card shadow-sm border-b border-border">
@@ -39,10 +41,10 @@ const Header = () => {
 
         {/* Auth Buttons */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="text-foreground">
+          <Button variant="ghost" size="sm" className="text-foreground" onClick={() => navigate("/login")}>
             Login
           </Button>
-          <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold">
+          <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold" onClick={() => navigate("/cadastro")}>
             Cadastre-se
           </Button>
         </div>
@@ -71,8 +73,8 @@ const Header = () => {
               </a>
             ))}
             <div className="flex gap-3 pt-3 border-t border-border">
-              <Button variant="ghost" size="sm">Login</Button>
-              <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold">
+              <Button variant="ghost" size="sm" onClick={() => { setMobileOpen(false); navigate("/login"); }}>Login</Button>
+              <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold" onClick={() => { setMobileOpen(false); navigate("/cadastro"); }}>
                 Cadastre-se
               </Button>
             </div>
