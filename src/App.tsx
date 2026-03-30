@@ -11,6 +11,7 @@ import AdminLogin from "./pages/AdminLogin.tsx";
 import Admin from "./pages/Admin.tsx";
 import AdminPropertyForm from "./pages/AdminPropertyForm.tsx";
 import QuemSomos from "./pages/QuemSomos.tsx";
+import Blog from "./pages/Blog.tsx";
 
 const queryClient = new QueryClient();
 
