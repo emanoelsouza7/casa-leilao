@@ -41,10 +41,10 @@ const Header = () => {
 
         {/* Auth Buttons */}
         <div className="hidden lg:flex items-center gap-3">
-          <Button variant="ghost" size="sm" className="text-foreground">
+          <Button variant="ghost" size="sm" className="text-foreground" onClick={() => navigate("/login")}>
             Login
           </Button>
-          <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold">
+          <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold" onClick={() => navigate("/cadastro")}>
             Cadastre-se
           </Button>
         </div>
