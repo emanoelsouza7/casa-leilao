@@ -107,7 +107,7 @@ const PropertyDetail = () => {
         <div className="md:hidden bg-coral text-accent-foreground">
           <div className="container py-3 flex items-center justify-between">
             <span className="font-heading font-bold text-xl">{property.price}</span>
-            <Button size="sm" className="bg-accent-foreground/20 hover:bg-accent-foreground/30 text-accent-foreground border-0">
+            <Button size="sm" className="bg-accent-foreground/20 hover:bg-accent-foreground/30 text-accent-foreground border-0" onClick={() => window.open(`https://wa.me/5594991352277?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel: ${property.title}`)}`, '_blank')}>
               Tenho interesse
             </Button>
           </div>
