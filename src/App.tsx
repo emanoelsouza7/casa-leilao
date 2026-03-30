@@ -23,6 +23,10 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/encontre-seu-imovel" element={<Search />} />
           <Route path="/imovel/:id" element={<PropertyDetail />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/novo" element={<AdminPropertyForm />} />
+          <Route path="/admin/editar/:id" element={<AdminPropertyForm />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
