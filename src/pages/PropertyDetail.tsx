@@ -307,8 +307,8 @@ const PropertyDetail = () => {
                   )}
 
                   <div className="space-y-2 mt-6">
-                    <Button className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold py-5">Tenho interesse</Button>
-                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground py-5 gap-2">
+                    <Button className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold py-5" onClick={() => window.open(`https://wa.me/5594991352277?text=${encodeURIComponent(`Olá! Tenho interesse no imóvel: ${property.title}`)}`, '_blank')}>Tenho interesse</Button>
+                    <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground py-5 gap-2" onClick={() => window.open(`https://wa.me/5594991352277?text=${encodeURIComponent(`Olá! Gostaria de enviar uma proposta para o imóvel: ${property.title}`)}`, '_blank')}>
                       <FileText className="w-4 h-4" /> Enviar Proposta
                     </Button>
                   </div>
