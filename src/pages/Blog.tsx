@@ -205,33 +205,6 @@ const Blog = () => {
                 </div>
               </div>
 
-              {/* Categories */}
-              <div className="bg-card rounded-xl border border-border p-6">
-                <h3 className="text-lg font-heading font-bold text-primary mb-4">
-                  Categorias
-                </h3>
-                <ul className="space-y-3">
-                  {categories.map((cat) => (
-                    <li key={cat.name}>
-                      <button
-                        onClick={() =>
-                          setSelectedCategory(
-                            selectedCategory === cat.name ? null : cat.name
-                          )
-                        }
-                        className={`flex items-center gap-2 text-sm w-full text-left transition-colors ${
-                          selectedCategory === cat.name
-                            ? "text-primary font-semibold"
-                            : "text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        <ArrowRight className="w-3 h-3" />
-                        {cat.name} ({cat.count})
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
 
               {/* Newsletter CTA */}
               <div className="bg-primary rounded-xl p-6 text-primary-foreground">
