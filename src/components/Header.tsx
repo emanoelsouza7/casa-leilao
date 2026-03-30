@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.webp";
 
 const navLinks = [
   { label: "Encontre seu imóvel", href: "#imoveis" },
@@ -19,17 +20,8 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-card shadow-sm border-b border-border">
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <a href="/" className="flex items-center gap-2">
-          <div className="flex items-center gap-1">
-            <div className="w-8 h-8 rounded bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-heading font-bold text-sm">LI</span>
-            </div>
-            <div className="leading-tight">
-              <span className="font-heading font-bold text-primary text-lg leading-none">LEILÃO</span>
-              <br />
-              <span className="font-heading font-semibold text-coral text-xs tracking-wider leading-none">IMÓVEL</span>
-            </div>
-          </div>
+        <a href="/" className="flex items-center">
+          <img src={logo} alt="Leilão Imóvel" className="h-10 md:h-12" />
         </a>
 
         {/* Desktop Nav */}
