@@ -7,6 +7,9 @@ import Index from "./pages/Index.tsx";
 import Search from "./pages/Search.tsx";
 import PropertyDetail from "./pages/PropertyDetail.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import AdminLogin from "./pages/AdminLogin.tsx";
+import Admin from "./pages/Admin.tsx";
+import AdminPropertyForm from "./pages/AdminPropertyForm.tsx";
 
 const queryClient = new QueryClient();
 
