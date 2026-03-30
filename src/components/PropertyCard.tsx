@@ -21,6 +21,8 @@ const PropertyCard = ({
   image,
   title,
   address,
+  price,
+  oldPrice,
   discount,
   price1,
   date1,
