@@ -12,6 +12,8 @@ import Admin from "./pages/Admin.tsx";
 import AdminPropertyForm from "./pages/AdminPropertyForm.tsx";
 import QuemSomos from "./pages/QuemSomos.tsx";
 import Blog from "./pages/Blog.tsx";
+import Login from "./pages/Login.tsx";
+import Cadastro from "./pages/Cadastro.tsx";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +28,8 @@ const App = () => (
           <Route path="/encontre-seu-imovel" element={<Search />} />
           <Route path="/quem-somos" element={<QuemSomos />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/imovel/:id" element={<PropertyDetail />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<Admin />} />
