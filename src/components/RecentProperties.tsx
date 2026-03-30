@@ -47,7 +47,9 @@ const RecentProperties = () => {
               image={prop.image}
               title={prop.title}
               address={prop.address}
-              discount={prop.discount ? `${prop.discount} OFF` : undefined}
+              price={prop.price}
+              oldPrice={prop.old_price}
+              discount={prop.discount}
               price1={prop.price1}
               date1={prop.date1}
               price2={prop.price2}
