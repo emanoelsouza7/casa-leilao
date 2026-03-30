@@ -1,6 +1,8 @@
-import { MapPin, Calendar, Tag } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface PropertyCardProps {
+  id?: string;
   image: string;
   title: string;
   address: string;
@@ -13,6 +15,7 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({
+  id,
   image,
   title,
   address,
@@ -23,7 +26,7 @@ const PropertyCard = ({
   date2,
   tags,
 }: PropertyCardProps) => {
-  return (
+  const content = (
     <div className="bg-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group cursor-pointer border border-border">
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
@@ -45,9 +48,6 @@ const PropertyCard = ({
         <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-xs font-bold px-2.5 py-1 rounded-lg">
           {discount}
         </div>
-        <span className="absolute top-3 left-3 mt-7 bg-accent text-accent-foreground text-[10px] font-bold px-2 py-0.5 rounded hidden">
-          Novo!
-        </span>
       </div>
 
       {/* Content */}
@@ -79,6 +79,12 @@ const PropertyCard = ({
       </div>
     </div>
   );
+
+  if (id) {
+    return <Link to={`/imovel/${id}`}>{content}</Link>;
+  }
+
+  return content;
 };
 
 export default PropertyCard;

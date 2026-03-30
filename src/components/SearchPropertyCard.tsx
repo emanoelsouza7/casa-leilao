@@ -1,6 +1,8 @@
 import { MapPin, Clock, Heart, Trash2, Plus } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface SearchPropertyCardProps {
+  id?: string;
   image: string;
   title: string;
   address: string;
@@ -16,6 +18,7 @@ interface SearchPropertyCardProps {
 }
 
 const SearchPropertyCard = ({
+  id,
   image,
   title,
   address,
@@ -29,7 +32,7 @@ const SearchPropertyCard = ({
   tags,
   closingDate,
 }: SearchPropertyCardProps) => {
-  return (
+  const card = (
     <div className="bg-card rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-border flex flex-col">
       {/* Image */}
       <div className="relative h-52 overflow-hidden">
@@ -108,20 +111,35 @@ const SearchPropertyCard = ({
         {/* Action buttons */}
         <div className="flex items-center justify-between mt-4 pt-3 border-t border-border">
           <div className="flex gap-2">
-            <button className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-primary hover:bg-secondary transition-colors">
+            <button
+              onClick={(e) => e.preventDefault()}
+              className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-primary hover:bg-secondary transition-colors"
+            >
               <Trash2 className="w-4 h-4" />
             </button>
-            <button className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-primary hover:bg-secondary transition-colors">
+            <button
+              onClick={(e) => e.preventDefault()}
+              className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-primary hover:bg-secondary transition-colors"
+            >
               <Heart className="w-4 h-4" />
             </button>
           </div>
-          <button className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-primary hover:bg-secondary transition-colors">
+          <button
+            onClick={(e) => e.preventDefault()}
+            className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-primary hover:bg-secondary transition-colors"
+          >
             <Plus className="w-4 h-4" />
           </button>
         </div>
       </div>
     </div>
   );
+
+  if (id) {
+    return <Link to={`/imovel/${id}`}>{card}</Link>;
+  }
+
+  return card;
 };
 
 export default SearchPropertyCard;
