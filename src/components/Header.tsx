@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Imóveis Caixa", href: "#caixa" },
   { label: "Financiamento", href: "#simulador" },
   { label: "Leiloeiros Parceiros", href: "#parceiros" },
-  { label: "Quem Somos", href: "#sobre" },
+  { label: "Quem Somos", href: "/quem-somos" },
   { label: "Blog", href: "#blog" },
   { label: "Contato", href: "#contato" },
 ];
