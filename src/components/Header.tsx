@@ -9,7 +9,7 @@ const navLinks = [
   { label: "Financiamento", href: "#simulador" },
   { label: "Leiloeiros Parceiros", href: "#parceiros" },
   { label: "Quem Somos", href: "/quem-somos" },
-  { label: "Blog", href: "#blog" },
+  { label: "Blog", href: "/blog" },
   { label: "Contato", href: "#contato" },
 ];
 
