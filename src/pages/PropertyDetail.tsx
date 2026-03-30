@@ -245,7 +245,7 @@ const PropertyDetail = () => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2">
                     {property.aceitaFinanciamento ? (
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <CheckCircle className="w-5 h-5 text-primary" />
                     ) : (
                       <XCircle className="w-5 h-5 text-destructive" />
                     )}
@@ -255,7 +255,7 @@ const PropertyDetail = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     {property.aceitaFGTS ? (
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <CheckCircle className="w-5 h-5 text-primary" />
                     ) : (
                       <XCircle className="w-5 h-5 text-destructive" />
                     )}
@@ -265,7 +265,7 @@ const PropertyDetail = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     {property.aceitaParcelamento ? (
-                      <CheckCircle className="w-5 h-5 text-green-500" />
+                      <CheckCircle className="w-5 h-5 text-primary" />
                     ) : (
                       <XCircle className="w-5 h-5 text-destructive" />
                     )}
