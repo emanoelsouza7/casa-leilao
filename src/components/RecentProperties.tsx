@@ -12,7 +12,7 @@ const RecentProperties = () => {
     const fetch = async () => {
       const { data } = await supabase
         .from("properties")
-        .select("id, image, title, address, discount, price1, date1, price2, date2, tags")
+        .select("id, image, title, address, price, old_price, discount, price1, date1, price2, date2, tags")
         .order("created_at", { ascending: false })
         .limit(10);
       if (data) setProperties(data);
