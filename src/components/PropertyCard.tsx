@@ -45,9 +45,11 @@ const PropertyCard = ({
             </span>
           ))}
         </div>
-        <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-xs font-bold px-2.5 py-1 rounded-lg">
-          {discount}
-        </div>
+        {discount && (
+          <div className="absolute top-3 right-3 bg-coral text-accent-foreground text-xs font-bold px-2.5 py-1 rounded-lg">
+            {discount}
+          </div>
+        )}
       </div>
 
       {/* Content */}
