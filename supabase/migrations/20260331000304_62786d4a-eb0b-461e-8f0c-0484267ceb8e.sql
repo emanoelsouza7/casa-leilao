@@ -1,0 +1,1 @@
+UPDATE properties SET aceita_financiamento = true, aceita_fgts = true, aceita_parcelamento = true WHERE aceita_financiamento = false OR aceita_fgts = false OR aceita_parcelamento = false;
