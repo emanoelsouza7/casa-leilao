@@ -215,15 +215,17 @@ const PropertyDetail = () => {
                 <h2 className="font-heading font-bold text-lg text-foreground mb-4">Mais sobre o Imóvel</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
-                    { label: "Tipo", value: property.tipo },
+                    { label: "Localização", value: property.cidade ? `${property.estado} / ${property.cidade}` : null },
+                    { label: "Tipo", value: property.tipo ? `${property.tipo} / Venda Online` : null },
                     { label: "Banco", value: property.banco },
-                    { label: "Cidade", value: property.cidade ? `${property.cidade}/${property.estado}` : null },
-                    { label: "Bairro", value: property.bairro },
-                    { label: "Comarca", value: property.comarca },
-                    { label: "Matrícula", value: property.matricula },
                     { label: "Código Origem", value: property.codigoOrigem },
-                    { label: "Data de Inclusão", value: property.dataInclusao },
+                    { label: "Código Imóvel", value: property.id },
                     { label: "Valor de Avaliação", value: property.valorAvaliacao },
+                    { label: "Data de Inclusão", value: property.dataInclusao },
+                    { label: "Matrícula", value: property.matricula },
+                    { label: "Comarca", value: property.comarca },
+                    { label: "Ofício", value: property.oficio },
+                    { label: "Bairro", value: property.bairro },
                   ].filter(item => item.value).map((item) => (
                     <div key={item.label} className="flex justify-between py-2 border-b border-border">
                       <span className="text-sm text-muted-foreground">{item.label}</span>
