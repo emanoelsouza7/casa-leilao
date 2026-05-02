@@ -1,8 +1,9 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { ArrowLeft, MapPin, Home, Car, Maximize, ChevronLeft, ChevronRight, Heart, Share2, FileText, CheckCircle, XCircle, Calendar } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+ import Header from "@/components/Header";
+ import Footer from "@/components/Footer";
+ import CatalogModal from "@/components/CatalogModal";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import SearchPropertyCard from "@/components/SearchPropertyCard";
@@ -12,7 +13,8 @@ const PropertyDetail = () => {
   const [property, setProperty] = useState<any>(null);
   const [similarProperties, setSimilarProperties] = useState<any[]>([]);
   const [currentImage, setCurrentImage] = useState(0);
-  const [loading, setLoading] = useState(true);
+   const [loading, setLoading] = useState(true);
+   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -62,7 +64,7 @@ const PropertyDetail = () => {
         <main className="flex-1 flex items-center justify-center">
           <p className="text-muted-foreground">Carregando...</p>
         </main>
-        <Footer />
+         <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
       </div>
     );
   }
@@ -79,7 +81,7 @@ const PropertyDetail = () => {
             </Link>
           </div>
         </main>
-        <Footer />
+         <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
       </div>
     );
   }
@@ -88,7 +90,7 @@ const PropertyDetail = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-secondary">
-      <Header />
+       <Header onOpenCatalog={() => setIsCatalogOpen(true)} />
       <main className="flex-1">
         {/* Breadcrumb */}
         <div className="bg-card border-b border-border">
@@ -341,7 +343,8 @@ const PropertyDetail = () => {
           </div>
         )}
       </main>
-      <Footer />
+       <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
+       <CatalogModal isOpen={isCatalogOpen} onOpenChange={setIsCatalogOpen} />
     </div>
   );
 };

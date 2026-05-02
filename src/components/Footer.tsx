@@ -2,7 +2,7 @@
 import logoImg from "@/assets/logo_leilao_imovel.png";
 
  interface FooterProps {
-   onOpenCatalog: () => void;
+   onOpenCatalog?: () => void;
  }
  
  const Footer = ({ onOpenCatalog }: FooterProps) => {

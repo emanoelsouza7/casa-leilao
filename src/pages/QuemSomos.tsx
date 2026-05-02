@@ -1,12 +1,15 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+ import Header from "@/components/Header";
+ import Footer from "@/components/Footer";
+ import CatalogModal from "@/components/CatalogModal";
+ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const QuemSomos = () => {
+ const QuemSomos = () => {
+   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+       <Header onOpenCatalog={() => setIsCatalogOpen(true)} />
       <main className="flex-1">
         {/* Hero section with image */}
         <section className="relative min-h-[70vh] flex items-center">
@@ -118,7 +121,8 @@ const QuemSomos = () => {
           </div>
         </section>
       </main>
-      <Footer />
+       <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
+       <CatalogModal isOpen={isCatalogOpen} onOpenChange={setIsCatalogOpen} />
     </div>
   );
 };
