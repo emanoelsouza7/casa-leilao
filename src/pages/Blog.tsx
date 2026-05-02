@@ -1,5 +1,6 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+ import Header from "@/components/Header";
+ import Footer from "@/components/Footer";
+ import CatalogModal from "@/components/CatalogModal";
 import { ArrowRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,7 +91,8 @@ const categories = [
 ];
 
 const Blog = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+   const [searchTerm, setSearchTerm] = useState("");
+   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const filteredArticles = articles.filter((article) => {
@@ -108,7 +110,7 @@ const Blog = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
+       <Header onOpenCatalog={() => setIsCatalogOpen(true)} />
 
       {/* Hero Section */}
       {!searchTerm && !selectedCategory && (
@@ -227,7 +229,8 @@ const Blog = () => {
         </div>
       </section>
 
-      <Footer />
+       <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
+       <CatalogModal isOpen={isCatalogOpen} onOpenChange={setIsCatalogOpen} />
     </div>
   );
 };

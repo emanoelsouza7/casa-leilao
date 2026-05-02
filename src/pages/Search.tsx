@@ -1,8 +1,9 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { SlidersHorizontal, ArrowUpDown, LayoutGrid, List, X, ChevronLeft, ChevronRight } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+ import Header from "@/components/Header";
+ import Footer from "@/components/Footer";
+ import CatalogModal from "@/components/CatalogModal";
 import SearchPropertyCard from "@/components/SearchPropertyCard";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -28,7 +29,8 @@ const Search = () => {
   const [properties, setProperties] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+   const [isCatalogOpen, setIsCatalogOpen] = useState(false);
 
   // Filters
   const [selectedCidade, setSelectedCidade] = useState<string>("");
@@ -162,7 +164,7 @@ const Search = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-secondary">
-      <Header />
+       <Header onOpenCatalog={() => setIsCatalogOpen(true)} />
       <main className="flex-1">
         <div className="bg-card border-b border-border">
           <div className="container py-8">
@@ -324,7 +326,8 @@ const Search = () => {
           )}
         </div>
       </main>
-      <Footer />
+       <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
+       <CatalogModal isOpen={isCatalogOpen} onOpenChange={setIsCatalogOpen} />
     </div>
   );
 };

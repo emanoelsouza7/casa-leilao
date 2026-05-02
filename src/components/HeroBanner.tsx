@@ -1,5 +1,9 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+ import { useState, useEffect } from "react";
+ import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
+ 
+ interface HeroBannerProps {
+   onOpenCatalog: () => void;
+ }
 
 const slides = [
   {
@@ -25,7 +29,7 @@ const slides = [
   },
 ];
 
-const HeroBanner = () => {
+ const HeroBanner = ({ onOpenCatalog }: HeroBannerProps) => {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
@@ -62,12 +66,21 @@ const HeroBanner = () => {
                 <p className="text-primary-foreground/90 text-base md:text-lg mb-6">
                   {slide.description}
                 </p>
-                <a
-                  href={slide.ctaHref}
-                  className="inline-block bg-coral hover:bg-coral-dark text-accent-foreground font-semibold px-8 py-3 rounded-lg transition-colors text-sm md:text-base"
-                >
-                  {slide.cta}
-                </a>
+                 <div className="flex flex-wrap gap-4">
+                   <a
+                     href={slide.ctaHref}
+                     className="inline-block bg-white text-primary hover:bg-white/90 font-bold px-8 py-3 rounded-lg transition-colors text-sm md:text-base"
+                   >
+                     {slide.cta}
+                   </a>
+                   <button
+                     onClick={onOpenCatalog}
+                     className="inline-flex items-center gap-2 bg-coral hover:bg-coral-dark text-accent-foreground font-bold px-8 py-3 rounded-lg transition-colors text-sm md:text-base"
+                   >
+                     <BookOpen className="w-4 h-4" />
+                     Baixar catálogo grátis
+                   </button>
+                 </div>
               </div>
             </div>
           </div>
