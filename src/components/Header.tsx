@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+ import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, X, User, LogOut } from "lucide-react";
+ import { Menu, X, User, LogOut, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,7 +15,11 @@ const navLinks = [
   { label: "Contato", href: "#contato" },
 ];
 
-const Header = () => {
+ export interface HeaderRef {
+   openCatalog: () => void;
+ }
+ 
+ const Header = forwardRef<HeaderRef, { onOpenCatalog?: () => void }>((props, ref) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [user, setUser] = useState<SupaUser | null>(null);
   const [isReady, setIsReady] = useState(false);
@@ -40,7 +44,13 @@ const Header = () => {
     navigate("/");
   };
 
-  const userName = user?.user_metadata?.nome || user?.email?.split("@")[0] || "Usuário";
+   useImperativeHandle(ref, () => ({
+     openCatalog: () => {
+       if (props.onOpenCatalog) props.onOpenCatalog();
+     }
+   }));
+ 
+   const userName = user?.user_metadata?.nome || user?.email?.split("@")[0] || "Usuário";
 
   return (
     <header className="sticky top-0 z-50 bg-card shadow-sm border-b border-border">
@@ -61,8 +71,20 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* Auth Area */}
-        <div className="hidden lg:flex items-center gap-3">
+         {/* Auth Area & Catalog Button */}
+         <div className="hidden lg:flex items-center gap-2">
+           <Button 
+             variant="ghost" 
+             size="sm" 
+             onClick={props.onOpenCatalog}
+             className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold rounded-lg flex items-center gap-1 shadow-sm px-4"
+           >
+             <BookOpen className="w-4 h-4" />
+             Baixar Catálogo
+           </Button>
+ 
+           <div className="h-6 w-[1px] bg-border mx-1" />
+ 
           {isReady && user ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -104,15 +126,17 @@ const Header = () => {
         <div className="lg:hidden bg-card border-t border-border">
           <nav className="container py-4 flex flex-col gap-3">
             {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-foreground hover:text-primary py-2"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+               <a key={link.label} href={link.href} className="text-sm font-medium text-foreground hover:text-primary py-2" onClick={() => setMobileOpen(false)} >
+                 {link.label}
+               </a>
+             ))}
+             <button 
+               onClick={() => { setMobileOpen(false); props.onOpenCatalog?.(); }}
+               className="text-sm font-medium text-coral flex items-center gap-2 py-2"
+             >
+               <BookOpen className="w-4 h-4" /> Baixar Catálogo
+             </button>
+             
             <div className="flex gap-3 pt-3 border-t border-border">
               {user ? (
                 <div className="flex items-center justify-between w-full">
@@ -139,7 +163,8 @@ const Header = () => {
         </div>
       )}
     </header>
-  );
-};
-
-export default Header;
+   );
+ });
+ 
+ Header.displayName = "Header";
+ export default Header;
