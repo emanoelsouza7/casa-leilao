@@ -35,14 +35,14 @@ import logoImg from "@/assets/logo_leilao_imovel.png";
                   </a>
                 </li>
               ))}
-               <li>
-                 <button 
-                   onClick={onOpenCatalog}
-                   className="text-muted-foreground text-sm hover:text-coral transition-colors flex items-center gap-1"
-                 >
-                   Baixar Catálogo de Imóveis
-                 </button>
-               </li>
+                <li>
+                  <button 
+                    onClick={onOpenCatalog}
+                    className="text-muted-foreground text-sm hover:text-coral transition-colors flex items-center gap-1 text-left"
+                  >
+                    Baixar Catálogo de Casas
+                  </button>
+                </li>
             </ul>
           </div>
 
