@@ -30,13 +30,12 @@ const Index = () => {
        <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
  
        {/* Floating Action Button */}
-       <Button
-         onClick={() => setIsCatalogOpen(true)}
-         className="fixed bottom-6 right-6 z-40 bg-coral hover:bg-coral-dark text-accent-foreground font-bold rounded-full shadow-2xl flex items-center gap-2 p-6 animate-bounce hover:animate-none"
-       >
-         <BookOpen className="w-5 h-5" />
-         <span className="hidden sm:inline">📘 Catálogo grátis</span>
-       </Button>
+        <Button
+          onClick={() => setIsCatalogOpen(true)}
+          className="fixed bottom-6 right-6 z-40 bg-coral hover:bg-coral-dark text-accent-foreground font-bold rounded-full shadow-2xl flex items-center gap-2 p-6 animate-bounce hover:animate-none"
+        >
+          <span className="flex items-center gap-2">📘 Baixar catálogo grátis</span>
+        </Button>
  
        <CatalogModal isOpen={isCatalogOpen} onOpenChange={setIsCatalogOpen} />
     </div>
