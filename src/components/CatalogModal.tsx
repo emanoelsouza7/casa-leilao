@@ -55,12 +55,12 @@ const CatalogModal = ({ isOpen, onOpenChange }: CatalogModalProps) => {
       <DialogContent className="sm:max-w-[450px]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-heading font-bold text-primary flex items-center gap-2">
-            <BookOpen className="w-6 h-6 text-coral" />
-            Baixar Catálogo
-          </DialogTitle>
-          <DialogDescription className="text-muted-foreground text-sm pt-2">
-            Preencha seus dados para baixar gratuitamente o catálogo de casas em leilão.
-          </DialogDescription>
+           <BookOpen className="w-6 h-6 text-coral" />
+           Receba agora o catálogo de casas em leilão
+         </DialogTitle>
+         <DialogDescription className="text-muted-foreground text-sm pt-2">
+           Preencha seus dados para liberar o download gratuito do catálogo com oportunidades selecionadas.
+         </DialogDescription>
         </DialogHeader>
 
         {isSuccess ? (
@@ -87,53 +87,53 @@ const CatalogModal = ({ isOpen, onOpenChange }: CatalogModalProps) => {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="nome">Nome completo</Label>
-              <Input 
-                id="nome" 
-                placeholder="Seu nome" 
-                value={formData.nome}
-                onChange={(e) => setFormData({...formData, nome: e.target.value})}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="whatsapp">WhatsApp</Label>
-              <Input 
-                id="whatsapp" 
-                placeholder="(00) 00000-0000" 
-                value={formData.whatsapp}
-                onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">E-mail</Label>
-              <Input 
-                id="email" 
-                type="email" 
-                placeholder="seu@email.com" 
-                value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cidade">Cidade de interesse</Label>
-              <Input 
-                id="cidade" 
-                placeholder="Ex: São Paulo" 
-                value={formData.cidade}
-                onChange={(e) => setFormData({...formData, cidade: e.target.value})}
-                required
-              />
-            </div>
-            <Button 
-              type="submit" 
-              className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold h-12 text-base mt-2"
-              disabled={isLoading}
-            >
-              {isLoading ? "Processando..." : "Baixar catálogo grátis"}
-            </Button>
+               <Label htmlFor="nome">Nome</Label>
+               <Input 
+                 id="nome" 
+                 placeholder="Seu nome completo" 
+                 value={formData.nome}
+                 onChange={(e) => setFormData({...formData, nome: e.target.value})}
+                 required
+               />
+             </div>
+             <div className="space-y-2">
+               <Label htmlFor="whatsapp">WhatsApp</Label>
+               <Input 
+                 id="whatsapp" 
+                 placeholder="(00) 00000-0000" 
+                 value={formData.whatsapp}
+                 onChange={(e) => setFormData({...formData, whatsapp: e.target.value})}
+                 required
+               />
+             </div>
+             <div className="space-y-2">
+               <Label htmlFor="email">E-mail</Label>
+               <Input 
+                 id="email" 
+                 type="email" 
+                 placeholder="seu@email.com" 
+                 value={formData.email}
+                 onChange={(e) => setFormData({...formData, email: e.target.value})}
+                 required
+               />
+             </div>
+             <div className="space-y-2">
+               <Label htmlFor="cidade">Cidade de interesse</Label>
+               <Input 
+                 id="cidade" 
+                 placeholder="Ex: São Paulo, RJ, etc." 
+                 value={formData.cidade}
+                 onChange={(e) => setFormData({...formData, cidade: e.target.value})}
+                 required
+               />
+             </div>
+             <Button 
+               type="submit" 
+               className="w-full bg-coral hover:bg-coral-dark text-accent-foreground font-bold h-12 text-base mt-2"
+               disabled={isLoading}
+             >
+               {isLoading ? "Processando..." : "Liberar meu catálogo"}
+             </Button>
           </form>
         )}
       </DialogContent>
