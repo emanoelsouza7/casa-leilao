@@ -73,13 +73,15 @@ const slides = [
                    >
                      {slide.cta}
                    </a>
-                   <button
-                     onClick={onOpenCatalog}
+                   <a
+                     href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+                     target="_blank"
+                     rel="noopener noreferrer"
                      className="inline-flex items-center gap-2 bg-coral hover:bg-coral-dark text-accent-foreground font-bold px-8 py-3 rounded-lg transition-colors text-sm md:text-base"
                    >
                      <BookOpen className="w-4 h-4" />
                      Baixar catálogo grátis
-                   </button>
+                   </a>
                  </div>
               </div>
             </div>

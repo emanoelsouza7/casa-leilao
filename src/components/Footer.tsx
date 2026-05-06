@@ -36,12 +36,14 @@ import logoImg from "@/assets/logo_leilao_imovel.png";
                 </li>
               ))}
                 <li>
-                  <button 
-                    onClick={onOpenCatalog}
+                  <a 
+                    href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-muted-foreground text-sm hover:text-coral transition-colors flex items-center gap-1 text-left"
                   >
                     Baixar Catálogo de Casas
-                  </button>
+                  </a>
                 </li>
             </ul>
           </div>
