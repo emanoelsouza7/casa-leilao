@@ -30,12 +30,14 @@ const Index = () => {
        <Footer onOpenCatalog={() => setIsCatalogOpen(true)} />
  
        {/* Floating Action Button */}
-        <Button
-          onClick={() => setIsCatalogOpen(true)}
-          className="fixed bottom-6 right-6 z-40 bg-coral hover:bg-coral-dark text-accent-foreground font-bold rounded-full shadow-2xl flex items-center gap-2 p-6 animate-bounce hover:animate-none"
+        <a
+          href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-40 bg-coral hover:bg-coral-dark text-accent-foreground font-bold rounded-full shadow-2xl flex items-center gap-2 px-6 py-4 animate-bounce hover:animate-none no-underline"
         >
           <span className="flex items-center gap-2">📘 Baixar catálogo grátis</span>
-        </Button>
+        </a>
  
        <CatalogModal isOpen={isCatalogOpen} onOpenChange={setIsCatalogOpen} />
     </div>

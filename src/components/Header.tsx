@@ -72,16 +72,16 @@ const navLinks = [
         </nav>
 
          {/* Auth Area & Catalog Button */}
-         <div className="hidden lg:flex items-center gap-2">
-           <Button 
-             variant="ghost" 
-             size="sm" 
-             onClick={props.onOpenCatalog}
-             className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold rounded-lg flex items-center gap-1 shadow-sm px-4"
-           >
-             <BookOpen className="w-4 h-4" />
-             Baixar Catálogo
-           </Button>
+          <div className="hidden lg:flex items-center gap-2">
+            <a 
+              href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-coral hover:bg-coral-dark text-accent-foreground font-semibold h-9 rounded-lg flex items-center gap-1 shadow-sm px-4 text-sm"
+            >
+              <BookOpen className="w-4 h-4" />
+              Baixar Catálogo
+            </a>
  
            <div className="h-6 w-[1px] bg-border mx-1" />
  
@@ -130,12 +130,15 @@ const navLinks = [
                  {link.label}
                </a>
              ))}
-             <button 
-               onClick={() => { setMobileOpen(false); props.onOpenCatalog?.(); }}
-               className="text-sm font-medium text-coral flex items-center gap-2 py-2"
-             >
-               <BookOpen className="w-4 h-4" /> Baixar Catálogo
-             </button>
+              <a 
+                href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileOpen(false)}
+                className="text-sm font-medium text-coral flex items-center gap-2 py-2"
+              >
+                <BookOpen className="w-4 h-4" /> Baixar Catálogo
+              </a>
              
             <div className="flex gap-3 pt-3 border-t border-border">
               {user ? (

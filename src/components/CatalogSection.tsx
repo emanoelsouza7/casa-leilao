@@ -57,17 +57,19 @@ const CatalogSection = ({ onOpenModal }: CatalogSectionProps) => {
            ))}
          </div>
 
-         <div className="flex flex-col items-center justify-center gap-4">
-           <Button 
-             onClick={onOpenModal}
-             className="bg-coral hover:bg-coral-dark text-accent-foreground font-bold h-14 px-10 text-lg rounded-lg shadow-lg transition-all"
-           >
-             Quero baixar o catálogo grátis
-           </Button>
-           <p className="text-sm text-muted-foreground italic">
-             Catálogo gratuito por tempo limitado.
-           </p>
-         </div>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <a 
+              href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-coral hover:bg-coral-dark text-accent-foreground font-bold h-14 px-10 text-lg rounded-lg shadow-lg transition-all"
+            >
+              Quero baixar o catálogo grátis
+            </a>
+            <p className="text-sm text-muted-foreground italic">
+              Catálogo gratuito por tempo limitado.
+            </p>
+          </div>
       </div>
     </section>
   );
