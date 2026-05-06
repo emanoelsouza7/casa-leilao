@@ -72,47 +72,17 @@ const navLinks = [
         </nav>
 
          {/* Auth Area & Catalog Button */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center">
             <a 
               href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-coral hover:bg-coral-dark text-accent-foreground font-semibold h-9 rounded-lg flex items-center gap-1 shadow-sm px-4 text-sm"
+              className="inline-flex items-center justify-center bg-coral hover:bg-coral-dark text-accent-foreground font-bold h-11 rounded-lg flex items-center gap-2 shadow-md px-6 text-base transition-all hover:scale-105"
             >
-              <BookOpen className="w-4 h-4" />
-              Baixar Catálogo
+              <BookOpen className="w-5 h-5" />
+              Baixar Catálogo Agora
             </a>
- 
-           <div className="h-6 w-[1px] bg-border mx-1" />
- 
-          {isReady && user ? (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-2 text-foreground">
-                  <div className="w-8 h-8 rounded-full bg-coral flex items-center justify-center">
-                    <User className="w-4 h-4 text-accent-foreground" />
-                  </div>
-                  <span className="text-sm font-medium max-w-[120px] truncate">{userName}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuItem className="text-xs text-muted-foreground">{user.email}</DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout} className="text-destructive cursor-pointer">
-                  <LogOut className="w-4 h-4 mr-2" /> Sair
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : isReady ? (
-            <>
-              <Button variant="ghost" size="sm" className="text-foreground" onClick={() => navigate("/login")}>
-                Login
-              </Button>
-              <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold" onClick={() => navigate("/cadastro")}>
-                Cadastre-se
-              </Button>
-            </>
-          ) : null}
-        </div>
+          </div>
 
         <button
           className="lg:hidden p-2 text-foreground"
@@ -140,28 +110,17 @@ const navLinks = [
                 <BookOpen className="w-4 h-4" /> Baixar Catálogo
               </a>
              
-            <div className="flex gap-3 pt-3 border-t border-border">
-              {user ? (
-                <div className="flex items-center justify-between w-full">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-coral flex items-center justify-center">
-                      <User className="w-4 h-4 text-accent-foreground" />
-                    </div>
-                    <span className="text-sm font-medium truncate">{userName}</span>
-                  </div>
-                  <Button variant="ghost" size="sm" onClick={() => { setMobileOpen(false); handleLogout(); }}>
-                    <LogOut className="w-4 h-4" />
-                  </Button>
-                </div>
-              ) : (
-                <>
-                  <Button variant="ghost" size="sm" onClick={() => { setMobileOpen(false); navigate("/login"); }}>Login</Button>
-                  <Button size="sm" className="bg-coral hover:bg-coral-dark text-accent-foreground font-semibold" onClick={() => { setMobileOpen(false); navigate("/cadastro"); }}>
-                    Cadastre-se
-                  </Button>
-                </>
-              )}
-            </div>
+             <div className="pt-4 border-t border-border">
+               <a 
+                 href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 onClick={() => setMobileOpen(false)}
+                 className="flex items-center justify-center gap-2 bg-coral hover:bg-coral-dark text-accent-foreground font-bold py-3 rounded-lg shadow-sm"
+               >
+                 <BookOpen className="w-5 h-5" /> Baixar Catálogo Agora
+               </a>
+             </div>
           </nav>
         </div>
       )}
