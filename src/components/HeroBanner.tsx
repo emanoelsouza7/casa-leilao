@@ -68,19 +68,13 @@ const slides = [
                 </p>
                  <div className="flex flex-wrap gap-4">
                    <a
-                     href={slide.ctaHref}
-                     className="inline-block bg-white text-primary hover:bg-white/90 font-bold px-8 py-3 rounded-lg transition-colors text-sm md:text-base"
-                   >
-                     {slide.cta}
-                   </a>
-                   <a
                      href="https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass"
                      target="_blank"
                      rel="noopener noreferrer"
-                     className="inline-flex items-center gap-2 bg-coral hover:bg-coral-dark text-accent-foreground font-bold px-8 py-3 rounded-lg transition-colors text-sm md:text-base"
+                     className="inline-flex items-center gap-3 bg-coral hover:bg-coral-dark text-accent-foreground font-bold px-10 py-4 rounded-lg transition-all text-base md:text-lg shadow-xl hover:scale-105"
                    >
-                     <BookOpen className="w-4 h-4" />
-                     Baixar catálogo grátis
+                     <BookOpen className="w-6 h-6" />
+                     Baixar Catálogo Completo Grátis
                    </a>
                  </div>
               </div>
