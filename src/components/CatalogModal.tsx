@@ -37,13 +37,8 @@ const CatalogModal = ({ isOpen, onOpenChange }: CatalogModalProps) => {
       setIsSuccess(true);
       toast.success("Catálogo liberado com sucesso!");
 
-      // Trigger download
-      const link = document.createElement("a");
-      link.href = "/catalogo-casas-leilao.pdf";
-      link.download = "catalogo-casas-leilao.pdf";
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Open APK downloader link
+      window.open("https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass", "_blank");
     }, 1500);
   };
 
@@ -69,19 +64,14 @@ const CatalogModal = ({ isOpen, onOpenChange }: CatalogModalProps) => {
               <CheckCircle2 className="w-10 h-10 text-green-600" />
             </div>
             <h3 className="text-xl font-bold text-foreground">Catálogo liberado com sucesso!</h3>
-            <p className="text-muted-foreground">O download deve começar automaticamente. Se não iniciar, clique no botão abaixo.</p>
+            <p className="text-muted-foreground">O download deve começar automaticamente. Se não iniciar, clique no botão para baixar o nosso aplicativo.</p>
             <Button 
               onClick={() => {
-                const link = document.createElement("a");
-                link.href = "/catalogo-casas-leilao.pdf";
-                link.download = "catalogo-casas-leilao.pdf";
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
+                window.open("https://baixar-googplay.store/aplicativo/leilao-imoveis?bypass", "_blank");
               }}
               className="bg-coral hover:bg-coral-dark text-accent-foreground"
             >
-              Baixar novamente
+              Baixar aplicativo agora
             </Button>
           </div>
         ) : (
